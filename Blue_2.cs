@@ -90,7 +90,13 @@ namespace Lab_7
             public static void Sort(Participant[] array)
             {
                 if (array == null || array.Length == 0) return;
-                Array.Sort(array, (a, b) => b.TotalScore.CompareTo(a.TotalScore));
+                for (int i = 0; i < array.Length; i++)
+                {
+                    for (int j = 0; j < array.Length - 1 - i; j++)
+                    {
+                        if (array[j].TotalScore < array[j + 1].TotalScore) (array[j], array[j + 1]) = (array[j + 1], array[j]);
+                    }
+                }
             }
             public void Print()
             {
@@ -142,12 +148,12 @@ namespace Lab_7
                 get
                 {
                     if (Participants == null || Participants.Length < 3) return null;
-                    return new double[]
-                    {
-                        Bank * 0.5,
-                        Bank * 0.3,
-                        Bank * 0.2,
-                    };
+                    double[] awards = new double[3];
+                    awards[0] = Bank * 0.5;
+                    awards[1] = Bank * 0.3;
+                    awards[2] = Bank * 0.2;
+                    return awards;
+
                 }
             }
         }
@@ -172,10 +178,10 @@ namespace Lab_7
                     awards[1] = 0.25 * Bank;
                     awards[2] = 0.15 * Bank;
 
-                    double additionalAward = Bank * (N / 100);
-                    for (int i = 3; i < amountWinners; i++)
+                    
+                    for (int i = 3; i < awards.Length; i++)
                     {
-                        awards[i] = additionalAward;
+                        awards[i] = Bank * (N / 100); ;
                     }
 
                     return awards;

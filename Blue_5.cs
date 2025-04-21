@@ -27,6 +27,7 @@ namespace Lab_7
 
             public void SetPlace(int place)
             {
+                if (place != 0) return;
                 if (_place == 0) _place = place;
             }
 
@@ -62,12 +63,12 @@ namespace Lab_7
                 {
                     if (_sportsmen == null) return 0;
                     int score = 0;
-                    foreach ( var s in _sportsmen)
+                    foreach (var s in _sportsmen)
                     {
                         if (s == null) continue;
                         switch (s.Place)
                         {
-                            case 1: score+=5; break;
+                            case 1: score += 5; break;
                             case 2: score += 4; break;
                             case 3: score += 3; break;
                             case 4: score += 2; break;
@@ -86,19 +87,16 @@ namespace Lab_7
                     {
                         return int.MaxValue;
                     }
-                    int minPlace = int.MaxValue;
-                    foreach ( var s in _sportsmen)
+                    int minPlace = 18;
+                    foreach (var s in _sportsmen)
                     {
-                        if (s != null &&  s.Place > 0 && s.Place < minPlace)
+                        if (s != null && s.Place > 0 && s.Place < minPlace)
                         {
                             minPlace = s.Place;
                         }
 
                     }
-                    if (minPlace == int.MaxValue)
-                        return 0;
-                    else
-                        return minPlace;
+                    return minPlace;
                 }
             }
 
@@ -117,7 +115,7 @@ namespace Lab_7
 
             public void Add(Sportsman[] sportsmen)
             {
-                if (sportsmen == null) return;
+                if (_count >= 6 || _sportsmen == null) return;
                 foreach ( var s in sportsmen)
                 {
                     Add(s);
@@ -183,7 +181,7 @@ namespace Lab_7
                 if (Sportsmen == null || Sportsmen.Length == 0) return 0.0;
 
                 double sum = 0.0;
-                int count = 0;
+                double count = 0;
 
                 foreach ( var s in Sportsmen)
                 {
@@ -193,7 +191,6 @@ namespace Lab_7
                         count++;
                     }
                 }
-
                 if (count == 0) return 0.0;
                 return num/(sum/count);
             }
@@ -223,7 +220,7 @@ namespace Lab_7
                 }
 
                 if (product == 0) return 0;
-                return num * sum * count / product;
+                return num *( sum * count / product);
             }
         }
     }

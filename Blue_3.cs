@@ -17,7 +17,7 @@ namespace Lab_7
 
             public string Name { get { return _name; } }
             public string Surname { get { return _surname; } }
-            public int[] PenaltyTimes
+            public int[] Penalties
             {
                 get
                 {
@@ -28,7 +28,7 @@ namespace Lab_7
                     return minutes;
                 }
             }
-            public int TotalTime
+            public int Total
             {
                 get
                 {
@@ -76,13 +76,21 @@ namespace Lab_7
             public static void Sort(Participant[] array)
             {
                 if (array == null || array.Length == 0) return;
-                Array.Sort(array, (a, b) => a.TotalTime.CompareTo(b.TotalTime));
-
+                for (int i = 0; i < array.Length; i++)
+                {
+                    for (int j = 0; j < array.Length - i - 1; j++)
+                    {
+                        if (array[j].Total > array[j + 1].Total)
+                        {
+                            (array[j], array[j + 1]) = (array[j + 1], array[j]);
+                        }
+                    }
+                }
             }
 
             public void Print()
             {
-                Console.WriteLine($"{Name} {Surname}: {TotalTime}, Is expelled: {IsExpelled}");
+                Console.WriteLine($"{Name} {Surname}: {Total}, Is expelled: {IsExpelled}");
             }
         }
 
@@ -104,7 +112,7 @@ namespace Lab_7
                     }
 
                     bool tooMany5Fouls = (fiveFoulsMatches * 100 / _minutes.Length) > 10;
-                    bool doubleFouls = TotalTime > (2 * _minutes.Length);
+                    bool doubleFouls = Total > (2 * _minutes.Length);
 
                     return tooMany5Fouls || doubleFouls;
 
@@ -142,7 +150,7 @@ namespace Lab_7
 
                     if (_totalHockeyPlayers == 0) return false;
                     double averagePenalty = _totalPenaltyTime / (double)_totalHockeyPlayers;
-                    return TotalTime > (averagePenalty * 0.1);
+                    return Total > (averagePenalty * 0.1);
                 }
             }
 
