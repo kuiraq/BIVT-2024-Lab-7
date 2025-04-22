@@ -84,9 +84,9 @@ namespace Lab_7
                 {
                     if (_sportsmen == null)
                     {
-                        return int.MaxValue;
+                        return 0;
                     }
-                    int minPlace = int.MaxValue;
+                    int minPlace = 18;
                     foreach (var s in _sportsmen)
                     {
                         if (s != null && s.Place > 0 && s.Place < minPlace)
