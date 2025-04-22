@@ -169,7 +169,7 @@ namespace Lab_7
                 {
                     if (Participants == null || Participants.Length < 3) return null;
 
-                    int amountWinners = Math.Min(Math.Max(3, Participants.Length / 2), 10); //  Не менее 3 и не более половины но не больше 10
+                    int amountWinners = Math.Min(Participants.Length / 2, 10); //  Не менее 3 и не более половины но не больше 10
 
                     double[] awards = new double[amountWinners];
                     double N = 20.0 / amountWinners;
@@ -179,9 +179,9 @@ namespace Lab_7
                     awards[2] = 0.15 * Bank;
 
                     
-                    for (int i = 3; i < awards.Length; i++)
+                    for (int i = 0; i < awards.Length; i++)
                     {
-                        awards[i] = Bank * (N / 100); ;
+                        awards[i] += Bank * (N / 100); ;
                     }
 
                     return awards;

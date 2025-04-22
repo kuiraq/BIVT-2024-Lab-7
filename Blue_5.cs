@@ -27,8 +27,8 @@ namespace Lab_7
 
             public void SetPlace(int place)
             {
-                if (place != 0) return;
-                if (_place == 0) _place = place;
+                if (_place != 0) return;
+                _place = place;
             }
 
             public void Print()
@@ -42,7 +42,6 @@ namespace Lab_7
             private string _name;
             private Sportsman[] _sportsmen;
             private int _count;
-            protected const double num = 100.0;
 
             public string Name => _name;
             public Sportsman[] Sportsmen
@@ -87,7 +86,7 @@ namespace Lab_7
                     {
                         return int.MaxValue;
                     }
-                    int minPlace = 18;
+                    int minPlace = int.MaxValue;
                     foreach (var s in _sportsmen)
                     {
                         if (s != null && s.Place > 0 && s.Place < minPlace)
@@ -115,9 +114,10 @@ namespace Lab_7
 
             public void Add(Sportsman[] sportsmen)
             {
-                if (_count >= 6 || _sportsmen == null) return;
-                foreach ( var s in sportsmen)
+                if (sportsmen == null || _sportsmen == null) return;
+                foreach (var s in sportsmen)
                 {
+                    if (_count >= 6) break;
                     Add(s);
                 }
             }
@@ -130,7 +130,14 @@ namespace Lab_7
                 {
                     for (int j = 0; j < teams.Length - i - 1; j++)
                     {
-                        if (teams[j].SummaryScore < teams[j + 1].SummaryScore || (teams[j].SummaryScore == teams[j + 1].SummaryScore && teams[j].TopPlace > teams[j + 1].TopPlace))
+                        if (teams[j].SummaryScore < teams[j + 1].SummaryScore)
+                        {
+                            var temp = teams[j];
+                            teams[j] = teams[j + 1];
+                            teams[j + 1] = temp;
+                        }
+
+                        else if (teams[j].SummaryScore == teams[j + 1].SummaryScore && teams[j].TopPlace > teams[j + 1].TopPlace)
                         {
                             var temp = teams[j];
                             teams[j] = teams[j + 1];
@@ -192,7 +199,7 @@ namespace Lab_7
                     }
                 }
                 if (count == 0) return 0.0;
-                return num/(sum/count);
+                return 100/(sum/count);
             }
         }
 
@@ -220,7 +227,7 @@ namespace Lab_7
                 }
 
                 if (product == 0) return 0;
-                return num *( sum * count / product);
+                return 100 *( sum * count / product);
             }
         }
     }
